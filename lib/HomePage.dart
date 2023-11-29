@@ -36,19 +36,21 @@ class _homepageState extends State<homepage> {
                             crossAxisAlignment: CrossAxisAlignment.start,
                             children: <Widget>[
                               Container(
-                                height: 50,
-                                width: 50,
+                                height: 150,
+                                width: 150,
 
                                 child: Image.network(imageUrls[index]),
                               ),
                               Column(
                                 crossAxisAlignment: CrossAxisAlignment.start,
                                 children:<Widget> [
-                                  Padding(padding: EdgeInsets.fromLTRB(10, 0, 0, 0)),
+                                  Padding(padding: EdgeInsets.all(8)),
 
                                   Text(names[index],style: TextStyle(color: Colors.black,fontSize:18,fontWeight: FontWeight.bold),),
-                                  Padding(padding: EdgeInsets.fromLTRB(10, 30, 0, 0)),
+                                  Padding(padding: EdgeInsets.all(20)),
                                   Text(amount[index],style: TextStyle(color: Colors.black,fontSize:12,),),
+                                  Padding(padding: EdgeInsets.all(30)),
+
                                   Text(description[index],style: TextStyle(color: Colors.black,fontSize:9,),),
                                 ],
                               )
@@ -57,7 +59,7 @@ class _homepageState extends State<homepage> {
                           ),
                           Container(
                             alignment: Alignment.center,
-                            padding: EdgeInsets.symmetric(horizontal: 10.0,vertical: 10.0),
+                            padding: EdgeInsets.all(55),
                             child: OutlinedButton(style: ButtonStyle(backgroundColor: MaterialStateProperty.all<Color>(
                                 Colors.white)),
                               onPressed: () {  }, child: Text("Add",
