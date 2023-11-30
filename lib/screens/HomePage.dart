@@ -10,29 +10,39 @@ class homepage extends StatefulWidget {
 
 }
 class _homepageState extends State<homepage> {
+
+  List<Map<String, String>> cartItems = [];
+
   void _showAddBottomSheet(int index) {
+    cartItems.add({
+      'name': names[index],
+      'amount': amount[index],
+    });
+
     showModalBottomSheet(
+      backgroundColor: Colors.greenAccent,
       context: context,
       builder: (BuildContext context) {
-        return Container(
-          padding: EdgeInsets.all(16.0),
-          child: Column(
-            mainAxisSize: MainAxisSize.min,
-            children: <Widget>[
-              Text('Item Details'),
-              SizedBox(height: 16.0),
-              Text('Name: ${names[index]}'),
-              SizedBox(height: 8.0),
-              Text('Amount: ${amount[index]}'),
-              SizedBox(height: 16.0),
-              ElevatedButton(
-                onPressed: () {
-                  Navigator.of(context).pop();
-                },
-                child: Text('Add to Cart'),
-              ),
-            ],
-          ),
+        return StatefulBuilder(
+          builder: (BuildContext context, StateSetter setState) {
+            return ListView.builder(
+              itemCount: cartItems.length,
+              itemBuilder: (BuildContext context, int sheetIndex) {
+                return ListTile(
+                  title: Text(cartItems[sheetIndex]['name']!),
+                  subtitle: Text(cartItems[sheetIndex]['amount']!),
+                  trailing: ElevatedButton(
+                    onPressed: () {
+                      setState(() {
+                        cartItems.removeAt(sheetIndex); // Remove item from the list
+                      });
+                    },
+                    child: Text('Remove'),
+                  ),
+                );
+              },
+            );
+          },
         );
       },
     );
