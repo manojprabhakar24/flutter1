@@ -12,7 +12,6 @@ class homepage extends StatefulWidget {
 class _homepageState extends State<homepage> {
 
   List<Map<String, String>> cartItems = [];
-
   void _showAddBottomSheet(int index) {
     cartItems.add({
       'name': names[index],
@@ -20,26 +19,51 @@ class _homepageState extends State<homepage> {
     });
 
     showModalBottomSheet(
-      backgroundColor: Colors.greenAccent,
+      backgroundColor: Colors.indigo[200],
       context: context,
       builder: (BuildContext context) {
         return StatefulBuilder(
           builder: (BuildContext context, StateSetter setState) {
             return ListView.builder(
-              itemCount: cartItems.length,
+              itemCount: cartItems.length + 1, // Additional item for the Cart button
               itemBuilder: (BuildContext context, int sheetIndex) {
-                return ListTile(
-                  title: Text(cartItems[sheetIndex]['name']!),
-                  subtitle: Text(cartItems[sheetIndex]['amount']!),
-                  trailing: ElevatedButton(
-                    onPressed: () {
-                      setState(() {
-                        cartItems.removeAt(sheetIndex); // Remove item from the list
-                      });
-                    },
-                    child: Text('Remove'),
-                  ),
-                );
+                if (sheetIndex == cartItems.length) {
+                  // Display a "Cart" button at the end of the list
+                  return Container(
+
+                    margin: EdgeInsets.symmetric(vertical: 10.0, horizontal: 5.0),
+                    child: ElevatedButton(
+
+                      onPressed: () {
+                        Navigator.pop(context);
+                        _viewCart();
+                      },
+                      style: ElevatedButton.styleFrom(
+                        padding: EdgeInsets.symmetric(vertical: 12.0, horizontal: 40.0),
+                        backgroundColor: Colors.green, // Change button color here
+                      ),
+
+                      child: Text('View Cart', style: TextStyle(fontSize: 16.0,)),
+                    ),
+                  );
+                } else {
+                  // Display added items in the list
+                  return ListTile(
+                    title: Text(cartItems[sheetIndex]['name']!),
+                    subtitle: Text(cartItems[sheetIndex]['amount']!),
+                    trailing: OutlinedButton(  style: ButtonStyle(
+                      backgroundColor: MaterialStateProperty.all<Color>(Colors.red),
+                    ),
+                      onPressed: () {
+                        setState(() {
+                          cartItems.removeAt(sheetIndex); // Remove item from the list
+                        });
+                      },
+                      child: Text('Remove',
+                      style:TextStyle(color: Colors.black) ,),
+                    ),
+                  );
+                }
               },
             );
           },
@@ -47,6 +71,14 @@ class _homepageState extends State<homepage> {
       },
     );
   }
+
+  void _viewCart() {
+    // Code to navigate to the cart page or show cart details
+    // You can implement navigation or show a dialog with cart items here
+  }
+
+
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
