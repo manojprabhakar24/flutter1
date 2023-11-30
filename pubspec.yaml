@@ -65,7 +65,9 @@ assets:
   images/haircolor.jpg
   images/facecare.jpg
   images/massage.jpg
-  images/logo.jpg
+  images/logos.png
+
+
 
 
   # An image asset can refer to one or more resolution-specific "variants", see
